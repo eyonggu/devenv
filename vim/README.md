@@ -1,14 +1,8 @@
-dotvim
+vim
 ======
 
 1) How to apply vim environment on new machine
-   1. cd ~
-   2. git clone https://github.com/eyonggu/dotvim.git ~/.vim
-   3. ln -s ~/.vim/vimrc ~/.vimrc
-   4. ln -s ~/.vim/gvimrc ~/.gvimrc
-   5. cd ~/.vim
-   6. git submodule init
-   7. git submodule update
+   See setup.sh
 
 2) Install plugin as submodules
    1. cd ~/.vim
