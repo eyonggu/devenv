@@ -1,0 +1,66 @@
+#!/bin/bash
+
+#disable globbing, otherwise find command does not work if 
+#there is matching files under the current directory
+set -f
+
+CSCOPE_PATH="${PWD}"
+CSCOPE_FILE_TYPES=(".h" ".hh" ".c" ".cpp" ".cc" ".java")
+CSCOPE_DB_FILES=("cscope.out" "cscope.in.out" "cscope.po.out" "fileametags" "tags", "cscope.files")
+
+usage() {
+    echo ""
+    echo "$(basename $0) [dir1] [dir2] ... "
+    exit 1
+}
+
+#Parse options (not supported)
+while getopts "e:" OPTION 
+do
+   case $OPTION in
+      e ) EXCLUDED_PATH="*/$OPTARG";;
+      ? ) usage;;
+   esac
+done
+shift $(($OPTIND - 1))
+
+
+#Remove old database files
+for file in "${CSCOPE_DB_FILES[@]}"
+do
+  rm -rf "$file"
+done
+
+#Create files list
+for type in "${CSCOPE_FILE_TYPES[@]}"
+do
+    if [[ -z "$FILE_TYPE_FILTER" ]] ; then
+        FILE_TYPE_FILTER="-iname *$type"
+    else
+        FILE_TYPE_FILTER="$FILE_TYPE_FILTER -o -iname *$type"
+    fi
+done
+
+if [[ $# -lt 1 ]]; then
+    # current directory by default
+    find "${CSCOPE_PATH}" \( ${FILE_TYPE_FILTER} \) -print >> cscope.files
+else
+    #loop dir in "$*"
+    while [[ $# -gt 0 ]]
+    do
+        find "$CSCOPE_PATH/$1" \( $FILE_TYPE_FILTER \) -print >> cscope.files
+        shift
+    done
+fi
+
+#Generate cscope database
+cscope -b -q
+ctags -L cscope.files --c++-kinds=+p --fields=+iaS --extra=+q
+
+#for filelookup plugin
+echo -e "!_TAG_FILE_SORTED\t2\t/2=foldcase/" > filenametags
+while read -r file; do
+    echo -e "$(basename $file)\t$file\t1" >> ./filenametags
+done < cscope.files
+#find . \( $FILE_TYPE_FILTER \) -printf "%f\t%p\t1\n" | sort -f >> ./filenametags
+
