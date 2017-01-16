@@ -5,13 +5,34 @@
 GITHUB_DIR="${HOME}/github"
 DEVENV_DIR="${GITHUB_DIR}/devenv"
 
-#clone the repo from github
-cd $GITHUB_HOME
+while [ $# -gt 0 ]; do
+    case $1 in
+        -r)
+            RESET=yes
+            ;;
+        *)
+            echo -e "Usage: $(basename $0) [-r]"
+            echo -e "Options:"
+            echo -e "\t-r: reset whole dev env"
+            exit 1
+            ;;
+    esac
+
+    shift
+done
+
+#pull the latest repo, or clone if not exist yet
 if [[ -d ${DEVENV_DIR} ]]; then
-    #git pull
-    .
-else 
+    cd ${DEVENV_DIR}
+    git pull
+else
+    cd $GITHUB_HOME
     git clone https://github.com/eyonggu/devenv.git
+fi
+
+if [[ -n $RESET ]]; then
+    #done if not reset!
+    exit 0
 fi
 
 #setup vim
@@ -41,4 +62,7 @@ git clone https://github.com/ervandew/supertab.git
 #setup git
 GIT_CONFIG="${HOME}/.gitconfig"
 rm -rf ${GIT_CONFIG}
-ln -s ${DEVENV_DIR}/git/.gitconfig ~/.gitconfig
+ln -s ${DEVENV_DIR}/git/.gitconfig ${HOME}/.gitconfig
+
+#set bin
+ln -s ${DEVENV_DIR}/bin/cs ${HOME}/bin/cs

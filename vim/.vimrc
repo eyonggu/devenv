@@ -1,5 +1,5 @@
-""""""""""""""""""""""""""""""""""""""
-" Misc
+"""""""""""""""""""""""""""""""""""""
+" Golbal options/features
 """"""""""""""""""""""""""""""""""""""
 set nocompatible
 set number
@@ -7,56 +7,46 @@ set ruler
 set hls
 set showcmd
 set incsearch
-
-syntax on
-"colorscheme biogoo
-colorscheme desert
 set laststatus=2
-
+set diffopt=vertical,iwhite
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+set foldmethod=indent
+set foldlevel=100
 set autowrite
 "Set to auto read when a file is changed from the outside
 set autoread
-set diffopt=vertical,iwhite
-" When vimrc is edited, reload it
-autocmd! bufwritepost .vimrc source ~/.vimrc
 
-autocmd BufWritePre *.cpp,*.c,*.cc,*.h,*.hh :%s/\s\+$//e
-
-"set paste
-"set ic
-"set noic
-
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
-
+syntax on
+"enable file type dection
 filetype plugin indent on
+
+colorscheme desert
 
 """"""""""""""""""""""""""""""""""""""
 "INCIDENT SETTING
 """"""""""""""""""""""""""""""""""""""
 "use cindent stead of autoindent
-"set autoindent shiftwidth=2
-"set cindent shiftwidth=3 --CPP style
 set cindent shiftwidth=4
 set autoindent
 "hitting Tab in insert mode will produce the appropriate number of spaces
 set expandtab
 set softtabstop=4
-"set shiftwidth=4
-"set tabstop=4
 
 """"""""""""""""""""""""""""""""""""""
 " Autocmd
 """"""""""""""""""""""""""""""""""""""
-"au[tocmd] syntax:
-"au {event            }{pat}{ cmd                  }
-"for example:
-"au BufRead,BufNewFile *.tcl set filetype=eyonggutcl
-au InsertEnter * hi StatusLine ctermbg=1 
-au InsertLeave * hi StatusLine ctermbg=0
+" When vimrc is edited, reload it
+autocmd! bufwritepost .vimrc source ~/.vimrc
 
-"au BufRead,BufNewFile /vobs/radio_testbeds_lte/* set expandtab
-"au BufRead,BufNewFile /vobs/radio_testbeds_lte/* set shiftwidth=2
-"au BufRead,BufNewFile /vobs/radio_testbeds_lte/* set tabstop=2
+"remove trailing spaces for any kind of file, shouldn't?
+"autocmd BufWritePre *.cpp,*.c,*.cc,*.h,*.hh :%s/\s\+$//e
+autocmd BufWritePre * :%s/\s\+$//e
+
+autocmd InsertEnter * hi StatusLine ctermbg=1
+autocmd InsertLeave * hi StatusLine ctermbg=0
+
+autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+
 "au BufRead,BufNewFile ?akefile set noexpandtab
 "au BufRead,BufNewFile ?akefile set shiftwidth=4
 "au BufRead,BufNewFile ?akefile set tabstop=4
@@ -86,12 +76,6 @@ if exists("&undodir")
 endif
 
 """"""""""""""""""""""""""""""""""""""
-"FOLD SETTING
-""""""""""""""""""""""""""""""""""""""
-set foldmethod=indent
-set foldlevel=100
-
-""""""""""""""""""""""""""""""""""""""
 "KEY MAPPING
 "It seems ALT+k is not portable
 "Alt+k = Esc+k in putty
@@ -102,7 +86,6 @@ map <F1> :execute 'vimgrep /'.expand('<cword>').'/gj '.expand('%')<CR> :bo copen
 map <F2> :cnext<CR>
 map <F3> :cpre<CR>
 "nmap <F4> :wa<Bar>if v:this_session != ""<Bar>exe "mksession! " . v:this_session<Bar>endif<CR>
-map <F5> <Esc>:Tlist<CR>
 map <F5> <Esc>:Tlist<CR>
 " map <F6> :Lookup
 map <F9> :bo cwindow<CR>
@@ -240,4 +223,4 @@ nnoremap <Leader>fpl :vimgrep /^[^ ]*:$/ %<CR> :copen<CR>
 """"""""""""""""""""""""""""""""""""""
 "RCS code rule
 """""""""""""""""""""""""""""""""""""
-autocmd BufNewFile,BufRead /repo/eyonggu/rcs-*/* setlocal cindent shiftwidth=8 noexpandtab softtabstop=8 textwidth=79
+autocmd BufNewFile,BufRead /repo/eyonggu/rcs-*/*.c,/repo/eyonggu/rcs-*/*.h setlocal cindent shiftwidth=8 noexpandtab softtabstop=8 textwidth=79
