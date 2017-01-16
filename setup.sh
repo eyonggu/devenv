@@ -30,20 +30,21 @@ else
     git clone https://github.com/eyonggu/devenv.git
 fi
 
-if [[ -n $RESET ]]; then
+if [[ -z $RESET ]]; then
     #done if not reset!
     exit 0
 fi
 
 #setup vim
+echo "setup vim..."
 VIM_RC="${HOME}/.vimrc"
 VIM_DIR="${HOME}/.vim"
 VIM_BUNDLE="${VIM_DIR}/bundle"
 
-rm ${VIM_RC}
+rm -rf ${VIM_RC}
 ln -s ${DEVENV_DIR}/vim/.vimrc ${VIM_RC}
 
-rm ${VIM_DIR}
+rm -rf ${VIM_DIR}
 ln -s ${DEVENV_DIR}/vim ${VIM_DIR}
 
 if [[ ! -d ${VIM_BUNDLE} ]]; then
@@ -59,10 +60,12 @@ vim -u NONE -c "helptags vim-fugitive/doc" -c q
 rm -rf supertab
 git clone https://github.com/ervandew/supertab.git
 
-#setup git
+echo "setup git..."
 GIT_CONFIG="${HOME}/.gitconfig"
 rm -rf ${GIT_CONFIG}
 ln -s ${DEVENV_DIR}/git/.gitconfig ${HOME}/.gitconfig
 
-#set bin
+#setup bin
+echo "setup bin..."
+rm -rf ${HOME}/bin/cs
 ln -s ${DEVENV_DIR}/bin/cs ${HOME}/bin/cs
