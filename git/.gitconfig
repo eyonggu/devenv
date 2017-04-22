@@ -4,7 +4,7 @@
 	name = Yong Gu
 	email = yong.g.gu@ericsson.com
 [merge]
-        tool = kdiff3
+	tool = meld
 	conflictstyle = diff3
 [diff]
         #tool = vimdiff
