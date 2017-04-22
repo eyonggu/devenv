@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#disable globbing, otherwise find command does not work if 
+#disable globbing, otherwise find command does not work if
 #there is matching files under the current directory
 set -f
 
@@ -15,7 +15,7 @@ usage() {
 }
 
 #Parse options (not supported)
-while getopts "e:" OPTION 
+while getopts "e:" OPTION
 do
    case $OPTION in
       e ) EXCLUDED_PATH="*/$OPTARG";;
@@ -48,7 +48,7 @@ else
     #loop dir in "$*"
     while [[ $# -gt 0 ]]
     do
-        find "${CSCOPE_PATH}/$1" \( $FILE_TYPE_FILTER \) -print >> cscope.files
+        find "$1" \( $FILE_TYPE_FILTER \) -print >> cscope.files
         shift
     done
 fi
