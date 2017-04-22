@@ -157,6 +157,7 @@ let g:LookupFile_UsingSpecializedTags = 1
 let g:LookupFile_PreserveLastPattern = 0
 let g:LookupFile_LookupFunc = 'LookupFile_IgnoreCaseFunc'
 "CSCOPE
+set nocscopeverbose
 set cscopequickfix=s-,c-,d-,i-,t-,e-
 set cst
 set csto=0

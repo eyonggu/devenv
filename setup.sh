@@ -69,3 +69,8 @@ ln -s ${DEVENV_DIR}/git/.gitconfig ${HOME}/.gitconfig
 echo "setup bin..."
 rm -rf ${HOME}/bin/cs
 ln -s ${DEVENV_DIR}/bin/cs ${HOME}/bin/cs
+
+#setup tmux
+echo "setup tmux..."
+rm -rf ${HOME}/.tmux.conf
+ln -s ${DEVENV_DIR}/.tmux.conf ${HOME}/.tmux.conf
