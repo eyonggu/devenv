@@ -1,3 +1,5 @@
+
+#From devenv/bash/.bash_user
 export PATH=$HOME/bin:$HOME/usr/local/bin:$PATH
 
 #enable command history
@@ -7,11 +9,11 @@ bind '"\e[B": history-search-forward'
 #enable colors in git log
 LESS="-R -I -M"
 
-#Init "module" command in bash
-module add vim-enhanced/7.3
-module add firefox
-module add git/2.9.3
-module add meld
-module add python/2.7.3
+#Init "module" command in bash, only valid in hub env
+#module add vim-enhanced/7.3
+#module add firefox
+#module add git/2.9.3
+#module add meld
+#module add python/2.7.3
 
 
