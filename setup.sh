@@ -74,3 +74,8 @@ ln -s ${DEVENV_DIR}/bin/cs ${HOME}/bin/cs
 echo "setup tmux..."
 rm -rf ${HOME}/.tmux.conf
 ln -s ${DEVENV_DIR}/tmux/.tmux.conf ${HOME}/.tmux.conf
+
+
+#check necessary utilities
+hash ctags 2>/dev/null || { echo -e >&2 "\e[31mWarning: ctags is not installed!\e[0m"; }
+
