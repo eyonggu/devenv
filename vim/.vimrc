@@ -220,6 +220,11 @@ endfunction
 "list functions in current fpl file
 nnoremap <Leader>fpl :vimgrep /^[^ ]*:$/ %<CR> :copen<CR>
 
+"For local replace
+nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
+
+"For global replace
+nnoremap gR gD:%s/<C-R>///gc<left><left><left>
 
 """"""""""""""""""""""""""""""""""""""
 "RCS code rule
