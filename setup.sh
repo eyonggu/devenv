@@ -40,6 +40,7 @@ echo "setup vim..."
 VIM_RC="${HOME}/.vimrc"
 VIM_DIR="${HOME}/.vim"
 VIM_BUNDLE="${VIM_DIR}/bundle"
+VIM_UNDO="${VIM_DIR}/undo"
 
 rm -rf ${VIM_RC}
 ln -s ${DEVENV_DIR}/vim/.vimrc ${VIM_RC}
@@ -49,6 +50,10 @@ ln -s ${DEVENV_DIR}/vim ${VIM_DIR}
 
 if [[ ! -d ${VIM_BUNDLE} ]]; then
     mkdir -p ${VIM_BUNDLE}
+fi
+
+if [[ ! -d ${VIM_UNDO} ]]; then
+    mkdir -p ${VIM_UNDO}
 fi
 
 #install vim plugins (using pathogen)
