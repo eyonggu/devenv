@@ -72,6 +72,7 @@ ln -s ${DEVENV_DIR}/git/.gitconfig ${HOME}/.gitconfig
 
 #setup bin
 echo "setup bin..."
+[ !-d ${HOME}/bin ] && mkdir ${HOME}/bin
 rm -rf ${HOME}/bin/cs
 ln -s ${DEVENV_DIR}/bin/cs ${HOME}/bin/cs
 
@@ -87,4 +88,5 @@ paste -s -d"\n" ~/.bashrc.bak ${DEVENV_DIR}/bash/.bashrc_user > ~/.bashrc
 
 #check necessary utilities
 hash ctags 2>/dev/null || { echo -e >&2 "\e[31mWarning: ctags is not installed!\e[0m"; }
+hash cscope 2>/dev/null || { echo -e >&2 "\e[31mWarning: cscope is not installed!\e[0m"; }
 
