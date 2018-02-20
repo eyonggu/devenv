@@ -7,8 +7,8 @@
 	tool = meld
 	conflictstyle = diff3
 [diff]
-        #tool = vimdiff
-        #external = /home/eyonggu/bin/git_vimdiff_wrapper
+        tool = vimdiff
+        external = /home/eyonggu/bin/git_vimdiff_wrapper
         #tool = meld
         #external = /home/eyonggu/bin/git_melddiff_wrapper
 [alias]
@@ -34,7 +34,7 @@
         cu = commit --amend --date="$(date -R)"
 
 [pager]
-        diff = 
+        diff =
 
 [core]
 	autocrlf = input
