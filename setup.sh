@@ -20,14 +20,8 @@ while [ $# -gt 0 ]; do
     shift
 done
 
-#pull the latest repo, or clone if not exist yet
-if [[ -d ${DEVENV_DIR} ]]; then
-    cd ${DEVENV_DIR}
-    git pull
-else
-    cd $GITHUB_HOME
-    git clone https://github.com/eyonggu/devenv.git
-fi
+cd ${DEVENV_DIR}
+git pull
 
 if [[ -z $RESET ]]; then
     #done if not reset!
@@ -62,7 +56,7 @@ git clone git://github.com/tpope/vim-fugitive.git
 vim -u NONE -c "helptags vim-fugitive/doc" -c q
 
 rm -rf supertab
-git clone https://github.com/ervandew/supertab.git
+git clone git://github.com/ervandew/supertab.git
 
 echo "setup git..."
 GIT_CONFIG="${HOME}/.gitconfig"
@@ -74,6 +68,8 @@ echo "setup bin..."
 [ -d ${HOME}/bin ] || mkdir ${HOME}/bin
 rm -rf ${HOME}/bin/cs
 ln -s ${DEVENV_DIR}/bin/cs ${HOME}/bin/cs
+rm -rf ${HOME}/bin/git_vimdiff_wrapper
+ln -s ${DEVENV_DIR}/git/git_vimdiff_wrapper ${HOME}/bin/git_vimdiff_wrapper
 
 #setup tmux
 echo "setup tmux..."
