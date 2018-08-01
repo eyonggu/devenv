@@ -2,8 +2,7 @@
 
 # TODO:
 
-GITHUB_DIR="${HOME}/github"
-DEVENV_DIR="${GITHUB_DIR}/devenv"
+DEVENV_DIR="$(pwd)"
 
 while [ $# -gt 0 ]; do
     case $1 in
@@ -72,7 +71,7 @@ ln -s ${DEVENV_DIR}/git/.gitconfig ${HOME}/.gitconfig
 
 #setup bin
 echo "setup bin..."
-[ !-d ${HOME}/bin ] && mkdir ${HOME}/bin
+[ -d ${HOME}/bin ] || mkdir ${HOME}/bin
 rm -rf ${HOME}/bin/cs
 ln -s ${DEVENV_DIR}/bin/cs ${HOME}/bin/cs
 
