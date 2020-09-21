@@ -1,18 +1,20 @@
 #!/bin/bash
 
-# TODO:
-
 DEVENV_DIR="$(pwd)"
+ACTION="reset"
 
 while [ $# -gt 0 ]; do
     case $1 in
-        -r)
-            RESET=yes
+        -n)
+            ACTION="new"
             ;;
+        -u)
+            ACTION="update"
         *)
             echo -e "Usage: $(basename $0) [-r]"
             echo -e "Options:"
-            echo -e "\t-r: reset whole dev env"
+            echo -e "\t-n: A complete new setup"
+            echo -e "\t-u: update to latest"
             exit 1
             ;;
     esac
@@ -23,7 +25,7 @@ done
 cd ${DEVENV_DIR}
 git pull
 
-if [[ -z $RESET ]]; then
+if [[ $ACTION = "update" ]]; then
     #done if not reset!
     exit 0
 fi
@@ -52,11 +54,11 @@ fi
 #install vim plugins (using pathogen)
 cd ${VIM_BUNDLE}
 rm -rf vim-fugitive
-git clone git://github.com/tpope/vim-fugitive.git
+git clone https://github.com/tpope/vim-fugitive.git
 vim -u NONE -c "helptags vim-fugitive/doc" -c q
 
 rm -rf supertab
-git clone git://github.com/ervandew/supertab.git
+git clone https://github.com/ervandew/supertab.git
 
 echo "setup git..."
 GIT_CONFIG="${HOME}/.gitconfig"
