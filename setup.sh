@@ -10,11 +10,12 @@ while [ $# -gt 0 ]; do
             ;;
         -u)
             ACTION="update"
+            ;;
         *)
             echo -e "Usage: $(basename $0) [-r]"
             echo -e "Options:"
-            echo -e "\t-n: A complete new setup"
-            echo -e "\t-u: update to latest"
+            echo -e "\t-n: complete new setup deven"
+            echo -e "\t-u: update devenv to latest"
             exit 1
             ;;
     esac
