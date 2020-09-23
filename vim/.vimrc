@@ -47,6 +47,8 @@ autocmd InsertLeave * hi StatusLine ctermbg=0
 
 autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
 "au BufRead,BufNewFile ?akefile set noexpandtab
 "au BufRead,BufNewFile ?akefile set shiftwidth=4
 "au BufRead,BufNewFile ?akefile set tabstop=4
