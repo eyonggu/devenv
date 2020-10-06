@@ -82,6 +82,10 @@ echo "setup tmux..."
 rm -rf ${HOME}/.tmux.conf
 ln -s ${DEVENV_DIR}/tmux/.tmux.conf ${HOME}/.tmux.conf
 
+echo "setup ctags..."
+rm -rf ${HOME}/.ctags
+ln -s ${DEVENV_DIR}/tag/ctags ${HOME}/.ctags
+
 #merge .bashrc
 echo "update .bashrc"
 mv ~/.bashrc ~/.bashrc.bak
