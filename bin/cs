@@ -5,7 +5,7 @@
 set -f
 
 CSCOPE_PATH="${PWD}"
-CSCOPE_FILE_TYPES=(".h" ".hh" ".c" ".cpp" ".cc" ".java")
+CSCOPE_FILE_TYPES=(".h" ".hh" ".c" ".cpp" ".cc" ".java" ".go")
 CSCOPE_DB_FILES=("cscope.out" "cscope.in.out" "cscope.po.out" "fileametags" "tags", "cscope.files")
 
 usage() {
@@ -15,10 +15,11 @@ usage() {
 }
 
 #Parse options (not supported)
-while getopts "e:" OPTION
+while getopts "e:g" OPTION
 do
    case $OPTION in
       e ) EXCLUDED_PATH="*/$OPTARG";;
+      g ) GO_PROJECT=1;;
       ? ) usage;;
    esac
 done
@@ -51,6 +52,10 @@ else
         find "$1" \( $FILE_TYPE_FILTER \) -print >> cscope.files
         shift
     done
+fi
+if [[ $GO_PROJECT && $GOROOT ]]; then
+    #find $GOROOT/src/pkg -name "*.go" -print >> cscope.files
+    true
 fi
 
 #Generate cscope database

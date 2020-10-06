@@ -56,12 +56,12 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 """"""""""""""""""""""""""""""""""""""
 "BACKUP SETTING
 """"""""""""""""""""""""""""""""""""""
-"set backup
+set backup
 "set nobackup
-"set backupext=.bak
+set backupext=.bak
 "set nowritebackup
-"set backupdir=~/tmp
-"set backupcopy=yes
+set backupdir=~/.vim/backup
+set backupcopy=yes
 
 set viminfo='20,%1,f1,<500
 "NOT save mapping and options
@@ -187,6 +187,12 @@ let g:clang_library_path = '/app/clang/3.1/LMWP3/lib'
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 "Ack
 nnoremap <Leader>f :Ack <C-R><C-W> <CR>
+
+"ALE"
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_sign_error = 'X'
+let g:ale_sign_warning = 'Z'
+let g:ale_lint_on_text_changed = 'never'
 
 """"""""""""""""""""""""""""""""""""""
 "FUNCTION

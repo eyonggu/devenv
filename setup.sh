@@ -61,6 +61,9 @@ vim -u NONE -c "helptags vim-fugitive/doc" -c q
 rm -rf supertab
 git clone https://github.com/ervandew/supertab.git
 
+rm -rf vim-go
+git clone https://github.com/fatih/vim-go.git
+
 echo "setup git..."
 GIT_CONFIG="${HOME}/.gitconfig"
 rm -rf ${GIT_CONFIG}
