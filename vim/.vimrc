@@ -46,8 +46,9 @@ autocmd InsertEnter * hi StatusLine ctermbg=1
 autocmd InsertLeave * hi StatusLine ctermbg=0
 
 autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType go nmap <Leader>i <Plug>(go-info)
+au filetype go inoremap <buffer> . .<C-x><C-o>
 
 "au BufRead,BufNewFile ?akefile set noexpandtab
 "au BufRead,BufNewFile ?akefile set shiftwidth=4
@@ -196,6 +197,10 @@ let g:ale_lint_on_text_changed = 'never'
 
 "vim-go"
 let g:go_bin_path = "/home/eyonggu/go/bin"
+let g:go_auto_type_info = 1
+
+"CtrlP"
+let g:ctrlp_regexp = 0
 
 """"""""""""""""""""""""""""""""""""""
 "FUNCTION

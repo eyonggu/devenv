@@ -61,6 +61,9 @@ vim -u NONE -c "helptags vim-fugitive/doc" -c q
 rm -rf supertab
 git clone https://github.com/ervandew/supertab.git
 
+rm -rf ctrlp
+git clone https://github.com/kien/ctrlp.vim.git
+
 rm -rf vim-go
 git clone https://github.com/fatih/vim-go.git
 
