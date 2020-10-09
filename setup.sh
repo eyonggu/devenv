@@ -64,6 +64,9 @@ git clone https://github.com/ervandew/supertab.git
 rm -rf vim-go
 git clone https://github.com/fatih/vim-go.git
 
+rm -rf ale
+git clone https://github.com/dense-analysis/ale.git
+
 echo "setup git..."
 GIT_CONFIG="${HOME}/.gitconfig"
 rm -rf ${GIT_CONFIG}

@@ -194,6 +194,9 @@ let g:ale_sign_error = 'X'
 let g:ale_sign_warning = 'Z'
 let g:ale_lint_on_text_changed = 'never'
 
+"vim-go"
+let g:go_bin_path = "/home/eyonggu/go/bin"
+
 """"""""""""""""""""""""""""""""""""""
 "FUNCTION
 """""""""""""""""""""""""""""""""""""
