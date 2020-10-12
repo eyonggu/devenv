@@ -1,35 +1,8 @@
 #!/bin/bash
 
 DEVENV_DIR="$(pwd)"
-ACTION="reset"
-
-while [ $# -gt 0 ]; do
-    case $1 in
-        -n)
-            ACTION="new"
-            ;;
-        -u)
-            ACTION="update"
-            ;;
-        *)
-            echo -e "Usage: $(basename $0) [-r]"
-            echo -e "Options:"
-            echo -e "\t-n: complete new setup deven"
-            echo -e "\t-u: update devenv to latest"
-            exit 1
-            ;;
-    esac
-
-    shift
-done
 
 cd ${DEVENV_DIR}
-git pull
-
-if [[ $ACTION = "update" ]]; then
-    #done if not reset!
-    exit 0
-fi
 
 #setup vim
 echo "setup vim..."
@@ -61,7 +34,7 @@ vim -u NONE -c "helptags vim-fugitive/doc" -c q
 rm -rf supertab
 git clone https://github.com/ervandew/supertab.git
 
-rm -rf ctrlp
+rm -rf ctrlp.vim
 git clone https://github.com/kien/ctrlp.vim.git
 
 rm -rf vim-go
@@ -96,6 +69,12 @@ ln -s ${DEVENV_DIR}/tag/ctags ${HOME}/.ctags
 echo "update .bashrc"
 mv ~/.bashrc ~/.bashrc.bak
 paste -s -d"\n" ~/.bashrc.bak ${DEVENV_DIR}/bash/.bashrc_user > ~/.bashrc
+
+#yamllint config
+echo "setup yamllint config"
+rm -rf $HOME/.config/yamllint
+mkdir -p $HOME/.config/yamllint
+ln -s ${DEVENV_DIR}/yamlint/config $HOME/.config/yamllint/config
 
 #check necessary utilities
 hash ctags 2>/dev/null || { echo -e >&2 "\e[31mWarning: ctags is not installed!\e[0m"; }
