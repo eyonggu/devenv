@@ -4546,4 +4546,4 @@ unlet s:cpo_save
 
 " go language
 let s:tlist_def_go_settings = 'go;g:enum;s:struct;u:union;t:type;' .
-                           \ 'v:variable;f:function'
+                \ 'v:variable;f:function'
