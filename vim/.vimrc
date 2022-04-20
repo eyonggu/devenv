@@ -21,6 +21,9 @@ syntax on
 filetype plugin indent on
 
 colorscheme desert
+"default is bad in MobaXterm
+"color names: https://vim.fandom.com/wiki/Xterm256_color_names_for_console_Vim
+hi Search ctermbg=21
 
 """"""""""""""""""""""""""""""""""""""
 "INCIDENT SETTING
@@ -47,6 +50,7 @@ autocmd InsertLeave * hi StatusLine ctermbg=0
 
 autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd Filetype go setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType go nmap <Leader>i <Plug>(go-info)
 au filetype go inoremap <buffer> . .<C-x><C-o>
 
@@ -140,6 +144,7 @@ inoremap <Leader>dt  <C-R>=strftime("%Y-%m-%d")<CR>
 "NERDTree
 let NERDTreeWinPos = "right"
 let NERDChristmasTree=0
+let NERDTreeShowHidden=0
 "grep.vim
 let Grep_Default_Filelist = '*.c *.cpp *.cc *.h *.hh'
 "DoxygenToolkit.vim
@@ -201,6 +206,15 @@ let g:go_auto_type_info = 1
 
 "CtrlP"
 let g:ctrlp_regexp = 0
+let g:ctrlp_max_files=0
+let g:ctrlp_max_depth=40
+
+"Aireline"
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+""If statusline is not colored, use "export TERM=xterm-256color" in bash
 
 """"""""""""""""""""""""""""""""""""""
 "FUNCTION
