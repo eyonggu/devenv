@@ -37,7 +37,7 @@
         diff =
 
 [core]
-	autocrlf = input
+	autocrlf = false
 	safecrlf = true
 	excludesfile = ~/.gitignore
 	editor = vi
