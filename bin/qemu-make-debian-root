@@ -85,7 +85,7 @@ else
     dd bs=1M count=$SIZE if=/dev/zero of=$IMAGE
 fi
 
-SECT=63	# first sector of a partition
+SECT=63   # first sector of a partition
 
 # Partition so one partition covers entire disk.
 echo "$SECT," | sfdisk -uS -L $IMAGE
@@ -95,7 +95,7 @@ LOOP=`losetup -f`
 losetup -o $(($SECT*512)) $LOOP $IMAGE
 
 # Create filesystem.
-mke2fs -q -m1 $LOOP
+mkfs.ext4 -q -m1 $LOOP
 
 TMP_DIR="$(mktemp -d /tmp/mount.XXXXXX)" || \
          { echo >&2 "Failed to create temporary directory"; exit 1; }
@@ -127,15 +127,15 @@ sed 's/^root:[^:]*/root:$1$aybpiIGf$cB7iFDNZvViQtQjEZ5HFQ0/' < $TMP_DIR/etc/shad
 mv $TMP_DIR/etc/shadow.new $TMP_DIR/etc/shadow
 
 #EYONGGU: Start interface at boot
-cat > $TMP_DIR/etc/network/interfaces.d/enp0s3 <<EOF
-auto enp0s3
-iface enp0s3 inet dhcp
+cat > $TMP_DIR/etc/network/interfaces.d/enp0s2 <<EOF
+auto enp0s2
+iface enp0s2 inet dhcp
 EOF
 
-cat > $TMP_DIR/etc/network/interfaces.d/enp0s4 <<EOF
-auto enp0s4
-iface enp0s4 inet dhcp
-EOF
+#cat > $TMP_DIR/etc/network/interfaces.d/enp0s4 <<EOF
+#auto enp0s4
+#iface enp0s4 inet dhcp
+#EOF
 
 echo "PermitRootLogin yes" >> $TMP_DIR/etc/ssh/sshd_config
 
