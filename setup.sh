@@ -68,7 +68,7 @@ ln -s ${DEVENV_DIR}/tag/ctags ${HOME}/.ctags
 #merge .bashrc
 echo "update .bashrc"
 mv ~/.bashrc ~/.bashrc.bak
-paste -s -d"\n" ~/.bashrc.bak ${DEVENV_DIR}/bash/.bashrc_user > ~/.bashrc
+paste -s -d"\n" ~/.bashrc.bak ${DEVENV_DIR}/bash/bashrc_user > ~/.bashrc
 
 #yamllint config
 echo "setup yamllint config"

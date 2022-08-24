@@ -9,4 +9,12 @@ bind '"\e[B": history-search-forward'
 #enable colors in git log
 LESS="-R -I -M"
 
+#fzf setttings
+if [ -x "$(command -v fzf)"  ]
+then
+    source $HOME/.devenv/fzf/key-bindings.bash
+    source $HOME/.devenv/fzf/completion.bash
+fi
+
+
 
