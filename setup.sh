@@ -79,4 +79,5 @@ ln -s ${DEVENV_DIR}/yamlint/config $HOME/.config/yamllint/config
 #check necessary utilities
 hash ctags 2>/dev/null || { echo -e >&2 "\e[31mWarning: ctags is not installed!\e[0m"; }
 hash cscope 2>/dev/null || { echo -e >&2 "\e[31mWarning: cscope is not installed!\e[0m"; }
+hash fzf 2>/dev/null || { echo -e >&2 "\e[31mWarning: please install fzf!, then run "PlugInstall" in vim to install fzf.vim plugin\e[0m"; }
 

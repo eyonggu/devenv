@@ -260,3 +260,8 @@ nnoremap gR gD:%s/<C-R>///gc<left><left><left>
 "RCS code rule
 """""""""""""""""""""""""""""""""""""
 autocmd BufNewFile,BufRead /repo/eyonggu/rcs-*/*.c,/repo/eyonggu/rcs-*/*.h setlocal cindent shiftwidth=8 noexpandtab softtabstop=8 textwidth=79
+
+call plug#begin()
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+call plug#end()
