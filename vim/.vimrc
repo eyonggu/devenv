@@ -145,18 +145,24 @@ inoremap <Leader>dt  <C-R>=strftime("%Y-%m-%d")<CR>
 let NERDTreeWinPos = "right"
 let NERDChristmasTree=0
 let NERDTreeShowHidden=0
+
 "grep.vim
 let Grep_Default_Filelist = '*.c *.cpp *.cc *.h *.hh'
+
 "DoxygenToolkit.vim
 let g:DoxygenToolkit_briefTag_pre = ""
+
 "EnhCommentify
 let EnhCommentifyRespectIndent = "yes"
 let EnhCommentifyPretty = "yes"
+
 "omnicppcomplete
 " no preview windows
 set completeopt=menuone
+
 "ECHOFUNC
 let g:EchoFuncKeyNext='<Leader>ef'
+
 "LOOKUPFILE
 " nmap <unique> <silent> lf <Plug>LookupFile
 let g:LookupFile_TagExpr = string('./filenametags')
@@ -164,6 +170,7 @@ let g:LookupFile_MinPatLength = 2
 let g:LookupFile_UsingSpecializedTags = 1
 let g:LookupFile_PreserveLastPattern = 0
 let g:LookupFile_LookupFunc = 'LookupFile_IgnoreCaseFunc'
+
 "CSCOPE
 set nocscopeverbose
 set cscopequickfix=s-,c-,d-,i-,t-,e-
@@ -183,14 +190,19 @@ elseif filereadable("../../../../../cscope.out")
   cs add ../../../../../cscope.out
 endif
 set tags=./tags
+
 "for Cygwin
 set backspace=2
+
 "PATHOGEN
 call pathogen#infect()
+
 "clang_complete
 let g:clang_library_path = '/app/clang/3.1/LMWP3/lib'
+
 "ultisnips
 let g:UltiSnipsJumpForwardTrigger="<tab>"
+
 "Ack
 nnoremap <Leader>f :Ack <C-R><C-W> <CR>
 
