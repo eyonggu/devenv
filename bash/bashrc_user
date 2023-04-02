@@ -14,6 +14,7 @@ if [ -x "$(command -v fzf)"  ]
 then
     source $HOME/.devenv/fzf/key-bindings.bash
     source $HOME/.devenv/fzf/completion.bash
+    export FZF_DEFAULT_COMMAND='rg --files --hidden'
 fi
 
 

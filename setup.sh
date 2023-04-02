@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#check necessary utilities
+hash ctags 2>/dev/null || ( { echo -e >&2 "\e[31mWarning: please install ctags!\e[0m"; } && exit )
+hash cscope 2>/dev/null || ( { echo -e >&2 "\e[31mWarning: please install cscope!\e[0m"; } && exit )
+hash fzf 2>/dev/null || ( { echo -e >&2 "\e[31mWarning: please install fzf!\e[0m"; } && exit )
+hash rg 2>/dev/null || ( { echo -e >&2 "\e[31mWarning: plase install rg!\e[0m"; } && exit )
+
 DEVENV_DIR="$(pwd)"
 
 cd ${DEVENV_DIR}
@@ -8,34 +14,30 @@ cd ${DEVENV_DIR}
 echo "setup vim..."
 VIM_RC="${HOME}/.vimrc"
 VIM_DIR="${HOME}/.vim"
-VIM_BUNDLE="${VIM_DIR}/bundle"
-VIM_UNDO="${VIM_DIR}/undo"
+VIM_DIR_BACKUP="${VIM_DIR}/backup"
+VIM_DIR_BUNDLE="${VIM_DIR}/bundle"
+VIM_DIR_UNDO="${VIM_DIR}/undo"
+
+if [[ ! -d ${VIM_DIR_BUNDLE} ]]; then
+    mkdir -p ${VIM_DIR_BUNDLE}
+fi
+if [[ ! -d ${VIM_DIR_UNDO} ]]; then
+    mkdir -p ${VIM_DIR_UNDO}
+fi
 
 rm -rf ${VIM_RC}
-ln -s ${DEVENV_DIR}/vim/.vimrc ${VIM_RC}
-
+ln -s ${DEVENV_DIR}/vim/vimrc ${VIM_RC}
 rm -rf ${VIM_DIR}
 ln -s ${DEVENV_DIR}/vim ${VIM_DIR}
 
-if [[ ! -d ${VIM_BUNDLE} ]]; then
-    mkdir -p ${VIM_BUNDLE}
-fi
-
-if [[ ! -d ${VIM_UNDO} ]]; then
-    mkdir -p ${VIM_UNDO}
-fi
-
 #install vim plugins (using pathogen)
-cd ${VIM_BUNDLE}
+cd ${VIM_DIR_BUNDLE}
 rm -rf vim-fugitive
 git clone https://github.com/tpope/vim-fugitive.git
 vim -u NONE -c "helptags vim-fugitive/doc" -c q
 
 rm -rf supertab
 git clone https://github.com/ervandew/supertab.git
-
-rm -rf ctrlp.vim
-git clone https://github.com/kien/ctrlp.vim.git
 
 rm -rf vim-go
 git clone https://github.com/fatih/vim-go.git
@@ -46,10 +48,12 @@ git clone https://github.com/dense-analysis/ale.git
 rm -rf nerdtree
 git clone https://github.com/preservim/nerdtree.git
 
+vim -c "PlugInstall" -c q
+
 echo "setup git..."
 GIT_CONFIG="${HOME}/.gitconfig"
 rm -rf ${GIT_CONFIG}
-ln -s ${DEVENV_DIR}/git/.gitconfig ${HOME}/.gitconfig
+ln -s ${DEVENV_DIR}/git/gitconfig ${HOME}/.gitconfig
 
 #setup bin
 echo "setup bin..."
@@ -79,8 +83,4 @@ rm -rf $HOME/.config/yamllint
 mkdir -p $HOME/.config/yamllint
 ln -s ${DEVENV_DIR}/yamlint/config $HOME/.config/yamllint/config
 
-#check necessary utilities
-hash ctags 2>/dev/null || { echo -e >&2 "\e[31mWarning: ctags is not installed!\e[0m"; }
-hash cscope 2>/dev/null || { echo -e >&2 "\e[31mWarning: cscope is not installed!\e[0m"; }
-hash fzf 2>/dev/null || { echo -e >&2 "\e[31mWarning: please install fzf!, then run "PlugInstall" in vim to install fzf.vim plugin\e[0m"; }
 
