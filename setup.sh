@@ -48,7 +48,7 @@ git clone https://github.com/dense-analysis/ale.git
 rm -rf nerdtree
 git clone https://github.com/preservim/nerdtree.git
 
-vim -c "PlugInstall" -c q
+#vim -c "PlugInstall" -c q
 
 echo "setup git..."
 GIT_CONFIG="${HOME}/.gitconfig"
@@ -83,4 +83,5 @@ rm -rf $HOME/.config/yamllint
 mkdir -p $HOME/.config/yamllint
 ln -s ${DEVENV_DIR}/yamlint/config $HOME/.config/yamllint/config
 
+echo "Run :PlugInstall in vim to install fzf.vim"
 
