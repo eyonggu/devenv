@@ -1,10 +1,13 @@
 #!/bin/bash
 
 #check necessary utilities
-hash ctags 2>/dev/null || ( { echo -e >&2 "\e[31mWarning: please install ctags!\e[0m"; } && exit )
-hash cscope 2>/dev/null || ( { echo -e >&2 "\e[31mWarning: please install cscope!\e[0m"; } && exit )
-hash fzf 2>/dev/null || ( { echo -e >&2 "\e[31mWarning: please install fzf!\e[0m"; } && exit )
-hash rg 2>/dev/null || ( { echo -e >&2 "\e[31mWarning: plase install rg!\e[0m"; } && exit )
+bins=(ctags cscope fzf rg)
+for b in ${bins[@]}; do
+    if ! command -v ${b} &> /dev/null; then
+        echo "Please install ${b} first!"
+        exit
+    fi
+done
 
 DEVENV_DIR="$(pwd)"
 

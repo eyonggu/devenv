@@ -148,6 +148,11 @@ call pathogen#infect()
 call plug#begin()
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+
+""dart/flutter
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'natebosch/vim-lsc'
+Plug 'natebosch/vim-lsc-dart'
 call plug#end()
 
 "CSCOPE
@@ -216,6 +221,9 @@ let g:airline#extensions#tabline#enabled = 1
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
 ""If statusline is not colored, use "export TERM=xterm-256color" in bash
+
+"fzf"
+nmap <C-P> :FZF<CR>
 
 """TO BE OBSOLETED BEGIN"""
 "LOOKUPFILE  (Using FZF instead)
