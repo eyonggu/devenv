@@ -15,6 +15,8 @@ set foldlevel=100
 set autowrite
 "Set to auto read when a file is changed from the outside
 set autoread
+"use clipboard as default register (= "+y")
+set clipboard=unnamedplus
 
 syntax on
 "enable file type dection
@@ -183,7 +185,8 @@ let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '~'
 " Start NERDTree. If a file is specified, move the cursor to its window.
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
+"autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
+autocmd VimEnter * if !argc() | NERDTree | endif
 
 "DoxygenToolkit.vim
 let g:DoxygenToolkit_briefTag_pre = ""
