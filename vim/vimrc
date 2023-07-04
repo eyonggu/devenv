@@ -58,6 +58,11 @@ autocmd Filetype go setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType go nmap <Leader>i <Plug>(go-info)
 au filetype go inoremap <buffer> . .<C-x><C-o>
 
+au FileType qf call AdjustWindowHeight(3, 10)
+function! AdjustWindowHeight(minheight, maxheight)
+  exe max([min([line("$")+1, a:maxheight]), a:minheight]) . "wincmd _"
+endfunction
+
 "au BufRead,BufNewFile ?akefile set noexpandtab
 "au BufRead,BufNewFile ?akefile set shiftwidth=4
 "au BufRead,BufNewFile ?akefile set tabstop=4
@@ -206,13 +211,9 @@ let g:go_auto_type_info = 1
 
 "fzf"
 nmap <C-P> :FZF<CR>
-nnoremap <silent> <Leader>rg :Rg <C-R><C-W><CR>
-
-
-au FileType qf call AdjustWindowHeight(3, 10)
-function! AdjustWindowHeight(minheight, maxheight)
-  exe max([min([line("$")+1, a:maxheight]), a:minheight]) . "wincmd _"
-endfunction
+nnoremap <silent> <Leader>rg :Rg -w <C-R><C-W><CR>
+""all arguments are passed directly to rg process (https://github.com/junegunn/fzf.vim/issues/838)
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".<q-args>, 1, <bang>0)
 
 
 """"""""""""""""""""""""""""""""""""""
