@@ -27,6 +27,9 @@ fi
 if [[ ! -d ${VIM_DIR_UNDO} ]]; then
     mkdir -p ${VIM_DIR_UNDO}
 fi
+if [[ ! -d ${VIM_DIR_BACKUP} ]]; then
+    mkdir -p ${VIM_DIR_BACKUP}
+fi
 
 rm -rf ${VIM_RC}
 ln -s ${DEVENV_DIR}/vim/vimrc ${VIM_RC}
@@ -69,7 +72,7 @@ ln -s ${DEVENV_DIR}/git/git_vimdiff_wrapper ${HOME}/bin/git_vimdiff_wrapper
 #setup tmux
 echo "setup tmux..."
 rm -rf ${HOME}/.tmux.conf
-ln -s ${DEVENV_DIR}/tmux/.tmux.conf ${HOME}/.tmux.conf
+ln -s ${DEVENV_DIR}/tmux/tmux.conf ${HOME}/.tmux.conf
 
 echo "setup ctags..."
 rm -rf ${HOME}/.ctags

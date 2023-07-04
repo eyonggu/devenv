@@ -12,8 +12,11 @@ LESS="-R -I -M"
 #fzf setttings
 if [ -x "$(command -v fzf)"  ]
 then
+    ## support C+T C+R A+C
     source $HOME/.devenv/fzf/key-bindings.bash
+    ## default trigger: **
     source $HOME/.devenv/fzf/completion.bash
+    # using rg, instead of default find command
     export FZF_DEFAULT_COMMAND='rg --files --hidden'
 fi
 

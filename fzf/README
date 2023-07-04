@@ -1,0 +1,9 @@
+These files are copied from https://github.com/junegunn/fzf/tree/master/shell
+
+completion: https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh
+ - default trigger: **
+
+key-bindings:
+ - C + T :  list files
+ - C + R :  list command history
+ - A + C :  cd
