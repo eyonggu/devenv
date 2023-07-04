@@ -15,8 +15,6 @@ set foldlevel=100
 set autowrite
 "Set to auto read when a file is changed from the outside
 set autoread
-"use clipboard as default register (= "+y")
-set clipboard=unnamedplus
 
 syntax on
 "enable file type dection
@@ -36,6 +34,10 @@ set autoindent
 "hitting Tab in insert mode will produce the appropriate number of spaces
 set expandtab
 set softtabstop=4
+
+"for Cygwin
+set backspace=2
+
 
 """"""""""""""""""""""""""""""""""""""
 " Autocmd
@@ -89,23 +91,15 @@ endif
 "It seems ALT+k is not portable
 "Alt+k = Esc+k in putty
 """"""""""""""""""""""""""""""""""""""
-" map <silent><F5> :Tlist<CR>
 " <F1> used by help
-map <F1> :execute 'vimgrep /'.expand('<cword>').'/gj '.expand('%')<CR> :bo copen<CR>
 map <F2> :cnext<CR>
 map <F3> :cpre<CR>
-"nmap <F4> :wa<Bar>if v:this_session != ""<Bar>exe "mksession! " . v:this_session<Bar>endif<CR>
 map <F5> <Esc>:Tlist<CR>
-" map <F6> :Lookup
 map <F9> :bo cwindow<CR>
-map <F10> :ccl<CR>
-" map <F12> <Esc>:Tlist<CR><C-W>h<C-W>s<C-W>j5<C-W>-:VTreeExplore<CR>:set nonu<CR><C-W>l
-" nmap <F12> :!/home/eyonggu/sbin/cs<CR>:cs reset<CR><CR>
 
 "move
 map <Space> <C-F>
 
-"windows move
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-h> <C-w>h
@@ -114,7 +108,6 @@ map <C-_> <C-w>_
 map <C-=> <C-w>=
 
 "save & close
-" map <Esc>f :edit .<CR>jjjj
 " fast close
 map <C-c> :close<CR>
 " fast save
@@ -123,22 +116,24 @@ imap <Esc>s <Esc>:w!<CR>
 
 "search & replace
 "map <F3> :g/\<<C-R><C-W>\>/
+map <F1> :execute 'vimgrep /'.expand('<cword>').'/gj '.expand('%')<CR> :bo copen<CR>
+
 map <Leader>s :%s/\<<C-R><C-W>\>/
 
-nnoremap [I [I:let nr = input("Which one: ")<Bar>if nr != ""<Bar>exe "silent! normal " . nr ."[\t"<Bar>endif<CR>
-nnoremap ]I ]I:let nr = input("Which one: ")<Bar>if nr != ""<Bar>exe "silent! normal " . nr ."]\t"<Bar>endif<CR>
+""nnoremap [I [I:let nr = input("Which one: ")<Bar>if nr != ""<Bar>exe "silent! normal " . nr ."[\t"<Bar>endif<CR>
+""nnoremap ]I ]I:let nr = input("Which one: ")<Bar>if nr != ""<Bar>exe "silent! normal " . nr ."]\t"<Bar>endif<CR>
 
 "copy
+""use clipboard as default register (= "+y")
+set clipboard=unnamedplus
+
 vmap Y "+y
 nmap P "+p
-"copy between different vim instance
+"'copy between different vim instance
 vmap xr c<Esc>:r $HOME/.vimxfer<CR>
 vmap xw :w! $HOME/.vimxfer<CR>
 nmap xr :r $HOME/.vimxfer<CR>
 nmap xw :.w! $HOME/.vimxfer<CR>
-
-"insert date
-inoremap <Leader>dt  <C-R>=strftime("%Y-%m-%d")<CR>
 
 """"""""""""""""""""""""""""""""""""""
 "PLUGIN'S SETTING
@@ -152,9 +147,9 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 ""dart/flutter
-Plug 'dart-lang/dart-vim-plugin'
-Plug 'natebosch/vim-lsc'
-Plug 'natebosch/vim-lsc-dart'
+"Plug 'dart-lang/dart-vim-plugin'
+"Plug 'natebosch/vim-lsc'
+"Plug 'natebosch/vim-lsc-dart'
 call plug#end()
 
 "CSCOPE
@@ -195,16 +190,6 @@ let g:DoxygenToolkit_briefTag_pre = ""
 let EnhCommentifyRespectIndent = "yes"
 let EnhCommentifyPretty = "yes"
 
-"omnicppcomplete
-" no preview windows
-set completeopt=menuone
-
-"ECHOFUNC
-let g:EchoFuncKeyNext='<Leader>ef'
-
-"for Cygwin
-set backspace=2
-
 "clang_complete
 let g:clang_library_path = '/app/clang/3.1/LMWP3/lib'
 
@@ -218,53 +203,11 @@ let g:ale_lint_on_text_changed = 'never'
 let g:go_bin_path = "/home/eyonggu/go/bin"
 let g:go_auto_type_info = 1
 
-"Aireline"
-" Enable the list of buffers
-let g:airline#extensions#tabline#enabled = 1
-" Show just the filename
-let g:airline#extensions#tabline#fnamemod = ':t'
-""If statusline is not colored, use "export TERM=xterm-256color" in bash
 
 "fzf"
 nmap <C-P> :FZF<CR>
+nnoremap <silent> <Leader>rg :Rg <C-R><C-W><CR>
 
-"""TO BE OBSOLETED BEGIN"""
-"LOOKUPFILE  (Using FZF instead)
-" nmap <unique> <silent> lf <Plug>LookupFile
-let g:LookupFile_TagExpr = string('./filenametags')
-let g:LookupFile_MinPatLength = 2
-let g:LookupFile_UsingSpecializedTags = 1
-let g:LookupFile_PreserveLastPattern = 0
-let g:LookupFile_LookupFunc = 'LookupFile_IgnoreCaseFunc'
-"grep.vim (Using :Rg with FZF)
-let Grep_Default_Filelist = '*.c *.cpp *.cc *.h *.hh'
-"ultisnips (Never Used)
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-"Ack (Use :Rg)
-nnoremap <Leader>f :Ack <C-R><C-W> <CR>
-"""TO BE OBSOLETED END"""
-
-""""""""""""""""""""""""""""""""""""""
-"FUNCTION
-"""""""""""""""""""""""""""""""""""""
-"loookup file with ignore case
-function! LookupFile_IgnoreCaseFunc(pattern)
-    let _tags = &tags
-    try
-        let &tags = eval(g:LookupFile_TagExpr)
-        let newpattern = '\c' . a:pattern
-        let tags = taglist(newpattern)
-    catch
-        echohl ErrorMsg | echo "Exception: " . v:exception | echohl NONE
-        return ""
-    finally
-        let &tags = _tags
-    endtry
-
-    " Show the matches for what is typed so far.
-    let files = map(tags, 'v:val["filename"]')
-    return files
-endfunction
 
 au FileType qf call AdjustWindowHeight(3, 10)
 function! AdjustWindowHeight(minheight, maxheight)
@@ -283,6 +226,9 @@ nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
 
 "For global replace
 nnoremap gR gD:%s/<C-R>///gc<left><left><left>
+
+"insert date
+inoremap <Leader>dt  <C-R>=strftime("%Y-%m-%d")<CR>
 
 """"""""""""""""""""""""""""""""""""""
 "RCS code rule
