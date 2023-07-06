@@ -210,8 +210,9 @@ let g:go_auto_type_info = 1
 
 
 "fzf"
-nmap <C-P> :FZF<CR>
+nnoremap <silent> <C-P> :FZF<CR>
 nnoremap <silent> <Leader>rg :Rg -w <C-R><C-W><CR>
+nnoremap <silent> <Leader>b :Buffers<CR>
 ""all arguments are passed directly to rg process (https://github.com/junegunn/fzf.vim/issues/838)
 command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".<q-args>, 1, <bang>0)
 
