@@ -68,6 +68,9 @@ rm -rf ${HOME}/bin/cs
 ln -s ${DEVENV_DIR}/bin/cs ${HOME}/bin/cs
 rm -rf ${HOME}/bin/git_vimdiff_wrapper
 ln -s ${DEVENV_DIR}/git/git_vimdiff_wrapper ${HOME}/bin/git_vimdiff_wrapper
+cp ${DEVENV_DIR}/bin/bat ${HOME}/bin/bat
+cp ${DEVENV_DIR}/bin/vgrep ${HOME}/bin/vgrep
+cp ${DEVENV_DIR}/bin/fd ${HOME}/bin/fd
 
 #setup tmux
 echo "setup tmux..."

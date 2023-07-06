@@ -214,7 +214,7 @@ nnoremap <silent> <C-P> :FZF<CR>
 nnoremap <silent> <Leader>rg :Rg -w <C-R><C-W><CR>
 nnoremap <silent> <Leader>b :Buffers<CR>
 ""all arguments are passed directly to rg process (https://github.com/junegunn/fzf.vim/issues/838)
-command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".<q-args>, 1, <bang>0)
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".<q-args>, 1, fzf#vim#with_preview(), <bang>0)
 
 
 """"""""""""""""""""""""""""""""""""""
