@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #check necessary utilities
-bins=(ctags cscope fzf rg)
+bins=(ctags cscope fzf rg ccls)
 for b in ${bins[@]}; do
     if ! command -v ${b} &> /dev/null; then
         echo "Please install ${b} first!"

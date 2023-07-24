@@ -38,35 +38,6 @@ set softtabstop=4
 "for Cygwin
 set backspace=2
 
-
-""""""""""""""""""""""""""""""""""""""
-" Autocmd
-""""""""""""""""""""""""""""""""""""""
-" When vimrc is edited, reload it
-autocmd! bufwritepost .vimrc source ~/.vimrc
-
-"remove trailing spaces for any kind of file, shouldn't?
-"autocmd BufWritePre *.cpp,*.c,*.cc,*.h,*.hh :%s/\s\+$//e
-autocmd BufWritePre * :%s/\s\+$//e
-
-autocmd InsertEnter * hi StatusLine ctermbg=1
-autocmd InsertLeave * hi StatusLine ctermbg=0
-
-autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-autocmd Filetype go setlocal tabstop=4 shiftwidth=4 softtabstop=4
-autocmd FileType go nmap <Leader>i <Plug>(go-info)
-au filetype go inoremap <buffer> . .<C-x><C-o>
-
-au FileType qf call AdjustWindowHeight(3, 10)
-function! AdjustWindowHeight(minheight, maxheight)
-  exe max([min([line("$")+1, a:maxheight]), a:minheight]) . "wincmd _"
-endfunction
-
-"au BufRead,BufNewFile ?akefile set noexpandtab
-"au BufRead,BufNewFile ?akefile set shiftwidth=4
-"au BufRead,BufNewFile ?akefile set tabstop=4
-
 """"""""""""""""""""""""""""""""""""""
 "BACKUP SETTING
 """"""""""""""""""""""""""""""""""""""
@@ -90,6 +61,24 @@ if exists("&undodir")
     set undolevels=1000         " How many undos
     set undoreload=10000        " number of lines to save for undo
 endif
+
+""""""""""""""""""""""""""""""""""""""
+" Autocmd
+""""""""""""""""""""""""""""""""""""""
+" When vimrc is edited, reload it
+autocmd! bufwritepost .vimrc source ~/.vimrc
+
+"remove trailing spaces for any kind of file, shouldn't?
+"autocmd BufWritePre *.cpp,*.c,*.cc,*.h,*.hh :%s/\s\+$//e
+autocmd BufWritePre * :%s/\s\+$//e
+
+autocmd InsertEnter * hi StatusLine ctermbg=1
+autocmd InsertLeave * hi StatusLine ctermbg=0
+
+au FileType qf call AdjustWindowHeight(3, 10)
+function! AdjustWindowHeight(minheight, maxheight)
+  exe max([min([line("$")+1, a:maxheight]), a:minheight]) . "wincmd _"
+endfunction
 
 """"""""""""""""""""""""""""""""""""""
 "KEY MAPPING
@@ -141,16 +130,20 @@ nmap xr :r $HOME/.vimxfer<CR>
 nmap xw :.w! $HOME/.vimxfer<CR>
 
 """"""""""""""""""""""""""""""""""""""
-" Install Plugins (run :PlugInstall)
+" Plugins using vim-plug
+"  +Install :PlugInstall
+"  +Update  :PlugUpdate
 """"""""""""""""""""""""""""""""""""""
 call plug#begin()
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-Plug 'dense-analysis/ale'
 Plug 'preservim/nerdtree'
 Plug 'tpope/vim-fugitive'
 Plug 'ervandew/supertab'
+
+Plug 'dense-analysis/ale'
+Plug 'prabirshrestha/vim-lsp'
 
 ""dart/flutter
 "Plug 'dart-lang/dart-vim-plugin'
@@ -161,26 +154,6 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""
 "PLUGIN'S SETTING
 """"""""""""""""""""""""""""""""""""""
-"CSCOPE
-set nocscopeverbose
-set cscopequickfix=s-,c-,d-,i-,t-,e-
-set cst
-set csto=0
-if filereadable("cscope.out")
-  cs add cscope.out
-elseif filereadable("../cscope.out")
-  cs add ../cscope.out
-elseif filereadable("../../cscope.out")
-  cs add ../../cscope.out
-elseif filereadable("../../../cscope.out")
-  cs add ../../../cscope.out
-elseif filereadable("../../../../cscope.out")
-  cs add ../../../../cscope.out
-elseif filereadable("../../../../../cscope.out")
-  cs add ../../../../../cscope.out
-endif
-set tags=./tags
-
 "NERDTree
 let NERDTreeWinPos = "right"
 let NERDChristmasTree=0
@@ -199,19 +172,42 @@ let g:DoxygenToolkit_briefTag_pre = ""
 let EnhCommentifyRespectIndent = "yes"
 let EnhCommentifyPretty = "yes"
 
-"clang_complete
-let g:clang_library_path = '/app/clang/3.1/LMWP3/lib'
-
 "ALE"
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_sign_error = 'X'
 let g:ale_sign_warning = 'Z'
 let g:ale_lint_on_text_changed = 'never'
 
-"vim-go"
-let g:go_bin_path = "/home/eyonggu/go/bin"
-let g:go_auto_type_info = 1
+nnoremap <silent> <C-]> :ALEGoToDefinition<CR>
+"nnoremap K :ALEDocumentation<CR>
+"nnoremap gr :ALEFindReferences<CR>
+"nnoremap gd :ALEGoToDefinition<CR>
+"nnoremap gy :ALEGoToTypeDefinition<CR>
+"nnoremap gh :ALEHover<CR>
 
+" pylsp is only server but disabled by default
+let g:ale_linters = {
+\   'python': ['pylsp'],
+\}
+
+"" instead use <c-x><c-o> to trigger completion
+let g:ale_completion_enabled = 0
+set omnifunc=ale#completion#OmniFunc
+
+"vim-lsp
+"" seems better than ALE for C/C++
+if executable('ccls')
+   au User lsp_setup call lsp#register_server({
+      \ 'name': 'ccls',
+      \ 'cmd': {server_info->['ccls']},
+      \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+      \ 'initialization_options': {'cache': {'directory': expand('~/.cache/ccls') }},
+      \ 'allowlist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+      \ })
+
+    nnoremap <silent> <C-]> :LspDefinition<CR>
+    nnoremap <silent> K :LspPeekDefinition<CR>
+endif
 
 "fzf"
 nnoremap <silent> <C-P> :FZF<CR>
@@ -222,19 +218,13 @@ command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-hea
 
 
 """"""""""""""""""""""""""""""""""""""
-"REGULAR TASKS
+"FileType/Language specific setting
 """""""""""""""""""""""""""""""""""""
-"list functions in current fpl file
-"nnoremap <Leader>fpl :vimgrep /^[^ ]*:$/ %<CR> :copen<CR>
-
-"For local replace
-nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
-
-"For global replace
-nnoremap gR gD:%s/<C-R>///gc<left><left><left>
-
-"insert date
-inoremap <Leader>dt  <C-R>=strftime("%Y-%m-%d")<CR>
+autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+"autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+"autocmd Filetype go setlocal tabstop=4 shiftwidth=4 softtabstop=4
+"autocmd FileType go nmap <Leader>i <Plug>(go-info)
+"au filetype go inoremap <buffer> . .<C-x><C-o>
 
 """"""""""""""""""""""""""""""""""""""
 "RCS code rule
