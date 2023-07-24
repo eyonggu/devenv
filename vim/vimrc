@@ -20,10 +20,17 @@ syntax on
 "enable file type dection
 filetype plugin indent on
 
+
+""""""""""""""""""""""""""""""""""""""
+"Colors
+" :help hi
+""""""""""""""""""""""""""""""""""""""
 colorscheme desert
 "default is bad in MobaXterm
 "color names: https://vim.fandom.com/wiki/Xterm256_color_names_for_console_Vim
-hi Search ctermbg=21
+"hi Search ctermbg=21
+"" make the preview-window more readable
+hi Pmenu ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#64666d gui=NONE
 
 """"""""""""""""""""""""""""""""""""""
 "INCIDENT SETTING
@@ -130,7 +137,7 @@ nmap xr :r $HOME/.vimxfer<CR>
 nmap xw :.w! $HOME/.vimxfer<CR>
 
 """"""""""""""""""""""""""""""""""""""
-" Plugins using vim-plug
+" Install Plugins using vim-plug
 "  +Install :PlugInstall
 "  +Update  :PlugUpdate
 """"""""""""""""""""""""""""""""""""""
@@ -142,7 +149,9 @@ Plug 'preservim/nerdtree'
 Plug 'tpope/vim-fugitive'
 Plug 'ervandew/supertab'
 
+"" linter + LSP client
 Plug 'dense-analysis/ale'
+""As LSP client, vim-lsp seems better than ALE for C/C++
 Plug 'prabirshrestha/vim-lsp'
 
 ""dart/flutter
@@ -178,6 +187,7 @@ let g:ale_sign_error = 'X'
 let g:ale_sign_warning = 'Z'
 let g:ale_lint_on_text_changed = 'never'
 
+"" use ALE as default lsp for all languages except C/C++
 nnoremap <silent> <C-]> :ALEGoToDefinition<CR>
 "nnoremap K :ALEDocumentation<CR>
 "nnoremap gr :ALEFindReferences<CR>
@@ -195,7 +205,6 @@ let g:ale_completion_enabled = 0
 set omnifunc=ale#completion#OmniFunc
 
 "vim-lsp
-"" seems better than ALE for C/C++
 if executable('ccls')
    au User lsp_setup call lsp#register_server({
       \ 'name': 'ccls',
@@ -207,12 +216,13 @@ if executable('ccls')
 
     nnoremap <silent> <C-]> :LspDefinition<CR>
     nnoremap <silent> K :LspPeekDefinition<CR>
+    nnoremap <silent> <leader>gr :LspReferences<CR>
 endif
 
 "fzf"
 nnoremap <silent> <C-P> :FZF<CR>
 nnoremap <silent> <Leader>rg :Rg -w <C-R><C-W><CR>
-nnoremap <silent> <Leader>b :Buffers<CR>
+nnoremap <silent> <Leader>be :Buffers<CR>
 ""all arguments are passed directly to rg process (https://github.com/junegunn/fzf.vim/issues/838)
 command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".<q-args>, 1, fzf#vim#with_preview(), <bang>0)
 
