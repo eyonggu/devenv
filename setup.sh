@@ -21,9 +21,6 @@ VIM_DIR_BACKUP="${VIM_DIR}/backup"
 VIM_DIR_BUNDLE="${VIM_DIR}/bundle"
 VIM_DIR_UNDO="${VIM_DIR}/undo"
 
-if [[ ! -d ${VIM_DIR_BUNDLE} ]]; then
-    mkdir -p ${VIM_DIR_BUNDLE}
-fi
 if [[ ! -d ${VIM_DIR_UNDO} ]]; then
     mkdir -p ${VIM_DIR_UNDO}
 fi
@@ -35,26 +32,6 @@ rm -rf ${VIM_RC}
 ln -s ${DEVENV_DIR}/vim/vimrc ${VIM_RC}
 rm -rf ${VIM_DIR}
 ln -s ${DEVENV_DIR}/vim ${VIM_DIR}
-
-#install vim plugins (using pathogen)
-cd ${VIM_DIR_BUNDLE}
-rm -rf vim-fugitive
-git clone https://github.com/tpope/vim-fugitive.git
-vim -u NONE -c "helptags vim-fugitive/doc" -c q
-
-rm -rf supertab
-git clone https://github.com/ervandew/supertab.git
-
-rm -rf vim-go
-git clone https://github.com/fatih/vim-go.git
-
-rm -rf ale
-git clone https://github.com/dense-analysis/ale.git
-
-rm -rf nerdtree
-git clone https://github.com/preservim/nerdtree.git
-
-#vim -c "PlugInstall" -c q
 
 echo "setup git..."
 GIT_CONFIG="${HOME}/.gitconfig"

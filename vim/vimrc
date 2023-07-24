@@ -141,15 +141,16 @@ nmap xr :r $HOME/.vimxfer<CR>
 nmap xw :.w! $HOME/.vimxfer<CR>
 
 """"""""""""""""""""""""""""""""""""""
-"PLUGIN'S SETTING
+" Install Plugins (run :PlugInstall)
 """"""""""""""""""""""""""""""""""""""
-"PATHOGEN
-call pathogen#infect()
-
-"VIM-Plug
 call plug#begin()
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+
+Plug 'dense-analysis/ale'
+Plug 'preservim/nerdtree'
+Plug 'tpope/vim-fugitive'
+Plug 'ervandew/supertab'
 
 ""dart/flutter
 "Plug 'dart-lang/dart-vim-plugin'
@@ -157,6 +158,9 @@ Plug 'junegunn/fzf.vim'
 "Plug 'natebosch/vim-lsc-dart'
 call plug#end()
 
+""""""""""""""""""""""""""""""""""""""
+"PLUGIN'S SETTING
+""""""""""""""""""""""""""""""""""""""
 "CSCOPE
 set nocscopeverbose
 set cscopequickfix=s-,c-,d-,i-,t-,e-
