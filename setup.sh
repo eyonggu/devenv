@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #check necessary utilities
-bins=(ctags cscope fzf rg ccls)
+bins=(rg ccls)
 for b in ${bins[@]}; do
     if ! command -v ${b} &> /dev/null; then
         echo "Please install ${b} first!"
@@ -9,7 +9,11 @@ for b in ${bins[@]}; do
     fi
 done
 
-DEVENV_DIR="$(pwd)"
+DEVENV_DIR=${HOME}/.devenv
+
+rm -rf ${DEVENV_DIR}
+
+git clone https://github.com/eyonggu/devenv.git ${DEVENV_DIR}
 
 cd ${DEVENV_DIR}
 

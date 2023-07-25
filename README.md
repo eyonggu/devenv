@@ -4,7 +4,8 @@ devenv
 development environment set
 
 
-## Tips
+## Installation
 
-### Install FZF
-Latest FZF can be download from https://github.com/junegunn/fzf/releases
+curl -sLf https://github.com/eyonggu/devenv/blob/master/setup.sh | bash
+
+
