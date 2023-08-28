@@ -11,12 +11,6 @@ done
 
 DEVENV_DIR=${HOME}/.devenv
 
-rm -rf ${DEVENV_DIR}
-
-git clone https://github.com/eyonggu/devenv.git ${DEVENV_DIR}
-
-cd ${DEVENV_DIR}
-
 #setup vim
 echo "setup vim..."
 VIM_RC="${HOME}/.vimrc"
@@ -73,5 +67,6 @@ rm -rf $HOME/.config/yamllint
 mkdir -p $HOME/.config/yamllint
 ln -s ${DEVENV_DIR}/yamlint/config $HOME/.config/yamllint/config
 
-echo "Run :PlugInstall in vim to install fzf.vim"
+echo "To complete installation"
+echo "Open vim and Run :PlugInstall install vim plugins"
 
