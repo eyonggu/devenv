@@ -11,6 +11,7 @@
 | fsverity  | v1.5      | https://android.googlesource.com/platform/external/fsverity-utils/ |
 | htop      | 2.2.0     | https://htop.dev/  |
 | iostat    |           |  |
+| iozone    | 3.506     | https://www.iozone.org/ |
 | lsusb     | v012      | https://github.com/gregkh/usbutils |
 | mce-inject|           | https://github.com/andikleen/mce-inject |
 | mtdinfo   | 1.5.2     | |
