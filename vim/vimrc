@@ -28,7 +28,7 @@ filetype plugin indent on
 colorscheme desert
 "default is bad in MobaXterm
 "color names: https://vim.fandom.com/wiki/Xterm256_color_names_for_console_Vim
-"hi Search ctermbg=21
+hi Search ctermbg=21
 "" make the preview-window more readable
 hi Pmenu ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#64666d gui=NONE
 
@@ -161,6 +161,8 @@ Plug 'prabirshrestha/vim-lsp'
 "Plug 'dart-lang/dart-vim-plugin'
 "Plug 'natebosch/vim-lsc'
 "Plug 'natebosch/vim-lsc-dart'
+
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""
