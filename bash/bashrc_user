@@ -16,6 +16,8 @@ then
     source $HOME/.devenv/fzf/key-bindings.bash
     ## default trigger: **
     source $HOME/.devenv/fzf/completion.bash
+    ## git
+    source $HOME/.devenv/fzf/fzf-git.sh
     # using rg, instead of default find command
     export FZF_DEFAULT_COMMAND='rg --files --hidden'
 fi
